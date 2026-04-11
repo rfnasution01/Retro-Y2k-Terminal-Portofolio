@@ -1,42 +1,33 @@
-import type { IconType } from "react-icons";
-import { FaBuilding, FaLandmark, FaMountain, FaHardHat } from "react-icons/fa";
-
-export type ExperienceData = {
-	role: string;
-	company: string;
-	period: string;
-	icon: IconType;
+export const experienceData = {
+	title: "SYSTEM_LOG: Work_Experience",
+	subtitle: "Melihat riwayat pembaruan karir dan kontribusi profesional.",
+	logs: [
+		{
+			date: "2023 - PRESENT",
+			role: "Frontend Developer",
+			company: "Tech StartUp X",
+			description:
+				"Memimpin migrasi codebase dari JavaScript ke TypeScript. Mengoptimalkan performa React hingga 40% menggunakan teknik memoization.",
+			tags: ["React", "Next.js", "Performance"],
+			type: "PATCH", // Bisa: PATCH, MAJOR, MINOR (ala SemVer)
+		},
+		{
+			date: "2022 - 2023",
+			role: "Junior Web Developer",
+			company: "Creative Agency Y",
+			description:
+				"Membangun 10+ landing page responsif menggunakan Tailwind CSS dan Framer Motion untuk klien internasional.",
+			tags: ["Tailwind", "GSAP", "UI/UX"],
+			type: "MINOR",
+		},
+		{
+			date: "2021 - 2022",
+			role: "IT Internship",
+			company: "Government Office",
+			description:
+				"Melakukan maintenance database dan membantu troubleshooting jaringan internal.",
+			tags: ["SQL", "Networking", "Linux"],
+			type: "INITIAL_COMMIT",
+		},
+	],
 };
-
-export const EXPERIENCE_DATA: ExperienceData[] = [
-	{
-		role: "Senior Mine Planner",
-		company: "PT Bukit Asam Tbk",
-		period: "Apr 2024 - Present",
-		icon: FaMountain,
-	},
-	{
-		role: "Mining Engineer",
-		company: "PT Adaro Energy Indonesia",
-		period: "Aug 2023 - Jun 2024",
-		icon: FaBuilding,
-	},
-	{
-		role: "Operations Supervisor",
-		company: "PT Kaltim Prima Coal",
-		period: "Apr 2023 - Jul 2023",
-		icon: FaHardHat,
-	},
-	{
-		role: "Surveyor Engineer",
-		company: "PT United Tractors Tbk",
-		period: "Dec 2022 - Mar 2023",
-		icon: FaLandmark,
-	},
-	{
-		role: "Junior Geologist",
-		company: "PT Antam Tbk",
-		period: "Oct 2022 - Dec 2022",
-		icon: FaBuilding,
-	},
-];

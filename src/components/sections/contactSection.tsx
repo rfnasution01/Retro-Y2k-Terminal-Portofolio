@@ -1,111 +1,143 @@
-import { CONTACT_DATA } from "@/data/contact";
-import { HERO_DATA } from "@/data/hero";
 import { motion } from "framer-motion";
-import { FaWhatsapp, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import { contactData } from "@/data/contact";
+import { useState } from "react";
+import { LuTerminal } from "react-icons/lu";
 
-export function ContactSection() {
-	const data = CONTACT_DATA;
+export const ContactSection = () => {
+	const [step, setStep] = useState(0);
+	const [form, setForm] = useState({
+		name: "",
+		email: "",
+		message: "",
+	});
+
+	const steps = [
+		"Enter your name:",
+		"Enter your email:",
+		"Write your message:",
+	];
+
+	const handleInput = (value: string) => {
+		if (step === 0) setForm({ ...form, name: value });
+		if (step === 1) setForm({ ...form, email: value });
+		if (step === 2) setForm({ ...form, message: value });
+
+		setStep((prev) => prev + 1);
+	};
 
 	return (
-		<section className="relative flex flex-col gap-10 pt-16 pb-10 border-t border-white/10 overflow-hidden">
-			{/* BACKGROUND GLOW */}
-			<motion.div
-				initial={{ opacity: 0 }}
-				animate={{ opacity: 0.08 }}
-				transition={{ duration: 1 }}
-				className="absolute left-1/2 bottom-0 -translate-x-1/2 w-[600px] h-[600px] bg-primary blur-[140px]"
-			/>
+		<section className="relative py-28 px-6 flex justify-center">
+			{/* === AMBIENCE === */}
+			<div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(153,255,6,0.1),transparent_70%)]" />
 
-			{/* ================= CTA ================= */}
-			<motion.div
-				initial={{ opacity: 0, y: 40 }}
-				whileInView={{ opacity: 1, y: 0 }}
-				viewport={{ once: true }}
-				transition={{ duration: 0.7 }}
-				className="flex flex-col items-center text-center gap-4"
-			>
-				<h3 className="text-white text-xl md:text-2xl font-semibold">
-					Let’s Build Something Great Together
-				</h3>
+			{/* === WRAPPER === */}
+			<div className="w-full max-w-2xl mx-auto">
+				<motion.div
+					initial={{ opacity: 0, y: 40, scale: 0.97 }}
+					whileInView={{ opacity: 1, y: 0, scale: 1 }}
+					viewport={{ once: true }}
+					transition={{ duration: 0.5 }}
+					className="terminal-card border border-white/10 shadow-[0_25px_80px_rgba(0,0,0,0.7)] hover:shadow-[0_30px_100px_rgba(153,255,6,0.2)] transition-all duration-500"
+				>
+					{/* HEADER */}
+					<div className="flex items-center justify-between px-4 py-2 border-b border-white/10 bg-black/60">
+						<div className="flex items-center gap-2 text-xs text-primary font-mono">
+							<LuTerminal size={14} />
+							<span>{contactData.title}</span>
+						</div>
+						<span className="text-[10px] text-white/40 font-mono">
+							connection_module
+						</span>
+					</div>
 
-				<p className="text-gray-400 max-w-md">
-					Open for freelance, collaboration, or just a friendly chat.
-				</p>
-			</motion.div>
+					{/* BODY */}
+					<div className="p-6 font-mono text-sm min-h-[320px]">
+						<p className="text-white/50 mb-4">{contactData.description}</p>
 
-			{/* ================= SOCIAL ================= */}
-			<motion.div
-				initial="hidden"
-				whileInView="show"
-				viewport={{ once: true }}
-				variants={{
-					hidden: {},
-					show: {
-						transition: {
-							staggerChildren: 0.15,
-						},
-					},
-				}}
-				className="flex justify-center gap-6"
-			>
-				{[
-					{
-						href: `https://api.whatsapp.com/send?phone=${data.whatsapp}`,
-						icon: FaWhatsapp,
-						label: "WhatsApp",
-					},
-					{
-						href: data.linkedin,
-						icon: FaLinkedin,
-						label: "LinkedIn",
-					},
-					{
-						href: `mailto:${data.email}`,
-						icon: FaEnvelope,
-						label: "Email",
-					},
-				].map((item, i) => {
-					const Icon = item.icon;
+						{/* CLI OUTPUT */}
+						<div className="space-y-2">
+							{step > 0 && (
+								<p>
+									<span className="text-primary">name:</span> {form.name}
+								</p>
+							)}
+							{step > 1 && (
+								<p>
+									<span className="text-primary">email:</span> {form.email}
+								</p>
+							)}
+							{step > 2 && (
+								<p>
+									<span className="text-primary">message:</span> {form.message}
+								</p>
+							)}
 
-					return (
-						<motion.a
-							key={i}
-							href={item.href}
-							target="_blank"
-							initial={{ opacity: 0, y: 30 }}
-							animate={{ opacity: 1, y: 0 }}
-							whileHover={{ scale: 1.15, y: -4 }}
-							transition={{ duration: 0.3 }}
-							className="group relative flex flex-col items-center gap-2"
-						>
-							{/* ICON */}
-							<div className="flex h-14 w-14 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-xl transition group-hover:border-primary group-hover:shadow-[0_0_20px_rgba(153,255,6,0.4)]">
-								<Icon className="text-lg text-gray-300 group-hover:text-primary transition" />
-							</div>
+							{step < steps.length ? (
+								<CLIInput label={steps[step]} onSubmit={handleInput} />
+							) : (
+								<div className="mt-4 text-primary">
+									✔ Message sent successfully (simulated)
+								</div>
+							)}
+						</div>
 
-							{/* LABEL */}
-							<span className="text-xs text-gray-400 group-hover:text-white transition">
-								{item.label}
-							</span>
+						<p className="text-red-400 text-xs mt-6">{contactData.errorLog}</p>
 
-							{/* glow */}
-							<div className="absolute inset-0 opacity-0 group-hover:opacity-100 blur-xl bg-primary/20 transition"></div>
-						</motion.a>
-					);
-				})}
-			</motion.div>
+						{/* === SOCIALS INSIDE TERMINAL === */}
+						<div className="flex gap-4 mt-6 text-[11px]">
+							{contactData.socials.map((s) => (
+								<a
+									key={s.label}
+									href={s.href}
+									className="text-primary hover:underline"
+								>
+									[{s.label}]
+								</a>
+							))}
+						</div>
+					</div>
 
-			{/* ================= FOOTER ================= */}
-			<motion.div
-				initial={{ opacity: 0 }}
-				whileInView={{ opacity: 1 }}
-				viewport={{ once: true }}
-				transition={{ delay: 0.3 }}
-				className="text-center text-gray-500 text-xs mt-6"
-			>
-				© {new Date().getFullYear()} {HERO_DATA?.headlines?.[0]}. All rights
-				reserved.
-			</motion.div>
+					{/* FOOTER */}
+					<div className="border-t border-white/10 px-4 py-2 text-[10px] text-white/40 font-mono flex justify-between">
+						<span>STATUS: {contactData.status}</span>
+						<span>protocol: smtp_v1</span>
+					</div>
+				</motion.div>
+			</div>
 		</section>
 	);
-}
+};
+
+/* === CLI INPUT === */
+const CLIInput = ({
+	label,
+	onSubmit,
+}: {
+	label: string;
+	onSubmit: (val: string) => void;
+}) => {
+	const [value, setValue] = useState("");
+
+	return (
+		<div className="flex flex-col gap-1">
+			<label className="text-primary">{label}</label>
+
+			<div className="flex items-center gap-2">
+				<span className="text-primary">$</span>
+				<input
+					autoFocus
+					value={value}
+					onChange={(e) => setValue(e.target.value)}
+					onKeyDown={(e) => {
+						if (e.key === "Enter" && value.trim()) {
+							onSubmit(value);
+							setValue("");
+						}
+					}}
+					className="bg-transparent outline-none flex-1 text-white"
+				/>
+				<span className="animate-cursor">█</span>
+			</div>
+		</div>
+	);
+};

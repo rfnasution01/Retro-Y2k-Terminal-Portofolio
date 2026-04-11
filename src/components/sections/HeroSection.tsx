@@ -1,99 +1,136 @@
-import { HERO_DATA } from "@/data/hero";
-import { ReactTyped } from "react-typed";
 import { motion } from "framer-motion";
+import { heroData } from "@/data/hero";
+import { FaArrowRight } from "react-icons/fa6";
+import { FaDownload } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
-export function HeroSection() {
-	const data = HERO_DATA;
+export const HeroSection = () => {
+	const [displayedLines, setDisplayedLines] = useState<string[]>([]);
+	const [currentLine, setCurrentLine] = useState(0);
+	const [currentText, setCurrentText] = useState("");
+
+	// === TYPEWRITER EFFECT (REAL, bukan fake) ===
+	useEffect(() => {
+		if (currentLine >= heroData.typingLines.length) return;
+
+		const line = heroData.typingLines[currentLine];
+		let index = 0;
+
+		const interval = setInterval(() => {
+			setCurrentText(line.slice(0, index));
+			index++;
+
+			if (index > line.length) {
+				clearInterval(interval);
+				setDisplayedLines((prev) => [...prev, line]);
+				setCurrentText("");
+				setCurrentLine((prev) => prev + 1);
+			}
+		}, 30);
+
+		return () => clearInterval(interval);
+	}, [currentLine]);
 
 	return (
-		<section className="relative min-h-screen flex items-center overflow-hidden">
-			{/* BACKGROUND GLOW */}
-			<div className="absolute top-[-100px] left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-primary opacity-10 blur-[140px]" />
+		<section className="relative flex flex-col items-center justify-center min-h-screen px-6 overflow-hidden">
+			{/* === GRID BACKGROUND === */}
+			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]" />
 
-			<div className="grid md:grid-cols-2 gap-16 w-full items-center relative z-10">
-				{/* ================= LEFT ================= */}
+			<div className="container max-w-4xl relative z-10">
+				{/* === TERMINAL WINDOW === */}
 				<motion.div
-					initial={{ opacity: 0, y: 40 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.8 }}
-					className="flex flex-col gap-8"
+					initial={{ opacity: 0, scale: 0.96, y: 30 }}
+					animate={{ opacity: 1, scale: 1, y: 0 }}
+					transition={{ duration: 0.6 }}
+					className="terminal-card shadow-[0_0_40px_rgba(153,255,6,0.15)]"
 				>
-					{/* HEADLINE */}
-					<h1 className="text-primary font-bold text-[clamp(2.5rem,6vw,4.5rem)] leading-tight drop-shadow-[0_0_20px_#99FF06]">
-						<ReactTyped
-							strings={data.headlines}
-							typeSpeed={80}
-							backSpeed={40}
-							loop
-						/>
-					</h1>
+					{/* TOP BAR */}
+					<div className="win95-outset flex items-center justify-between px-3 py-1">
+						<span className="text-xs text-black font-bold">
+							{heroData.terminalHeader}
+						</span>
+						<div className="flex gap-1">
+							<div className="w-3 h-3 bg-red-500 border border-black" />
+							<div className="w-3 h-3 bg-yellow-400 border border-black" />
+							<div className="w-3 h-3 bg-green-500 border border-black" />
+						</div>
+					</div>
 
-					{/* TITLE */}
-					<motion.p
-						initial={{ opacity: 0, y: 20 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ delay: 0.3 }}
-						className="text-xl text-gray-300"
-					>
-						{data.title}
-					</motion.p>
+					{/* BODY */}
+					<div className="p-6 text-sm text-primary min-h-[220px]">
+						{/* COMMAND LINE */}
+						<div className="flex gap-2 mb-3">
+							<span>
+								{heroData.username}@{heroData.hostname}
+							</span>
+							<span>{heroData.directory}</span>
+							<span>$</span>
+						</div>
 
-					{/* DESCRIPTION */}
-					<motion.p
-						initial={{ opacity: 0, y: 20 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ delay: 0.5 }}
-						className="text-gray-400 leading-relaxed max-w-lg"
-					>
-						{data.description}
-					</motion.p>
+						{/* OUTPUT */}
+						<div className="space-y-1">
+							{displayedLines.map((line, i) => (
+								<p key={i}>
+									<span className="opacity-50 mr-2">›</span>
+									{line}
+								</p>
+							))}
 
-					{/* BUTTON */}
-					<motion.a
-						initial={{ opacity: 0, y: 20 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ delay: 0.7 }}
-						href={`https://api.whatsapp.com/send?phone=${data.phone}`}
-						target="_blank"
-						className="relative w-fit px-8 py-3 rounded-xl bg-primary text-black font-semibold overflow-hidden group"
-					>
-						<span className="relative z-10">Hire Me</span>
-
-						{/* glow hover */}
-						<div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.2),transparent_70%)]" />
-						<div className="absolute inset-0 blur-md opacity-50 group-hover:opacity-80 transition bg-primary" />
-					</motion.a>
+							{/* CURRENT TYPING */}
+							{currentLine < heroData.typingLines.length && (
+								<p>
+									<span className="opacity-50 mr-2">›</span>
+									{currentText}
+									<span className="animate-cursor ml-1">█</span>
+								</p>
+							)}
+						</div>
+					</div>
 				</motion.div>
 
-				{/* ================= RIGHT ================= */}
+				{/* === HERO TEXT === */}
 				<motion.div
-					initial={{ opacity: 0, scale: 0.9 }}
-					animate={{ opacity: 1, scale: 1 }}
-					transition={{ duration: 0.8, delay: 0.3 }}
-					className="flex justify-center"
+					initial={{ opacity: 0 }}
+					animate={{
+						opacity: currentLine >= heroData.typingLines.length ? 1 : 0,
+					}}
+					transition={{ duration: 0.5 }}
+					className="text-center mt-12 space-y-6"
 				>
-					<div className="relative group">
-						{/* GLOW */}
-						<div className="absolute inset-0 rounded-full bg-primary blur-[100px] opacity-20 group-hover:opacity-40 transition"></div>
+					<h1 className="text-4xl md:text-6xl font-bold text-primary tracking-tight">
+						{heroData.mainTitle}
+					</h1>
 
-						{/* FLOATING ANIMATION */}
-						<motion.img
-							src={data.image}
-							alt="profile"
-							className="relative w-[320px] h-[320px] object-cover rounded-full border border-white/10 shadow-[0_0_40px_rgba(153,255,6,0.2)]"
-							animate={{ y: [0, -12, 0] }}
-							transition={{
-								duration: 4,
-								repeat: Infinity,
-								ease: "easeInOut",
-							}}
-						/>
+					<p className="text-base md:text-lg text-foreground/70 max-w-xl mx-auto leading-relaxed">
+						{heroData.subTitle}
+					</p>
 
-						{/* RING */}
-						<div className="absolute inset-0 rounded-full border border-primary/20 animate-pulse"></div>
+					{/* === CTA BUTTONS (WIN95 STYLE) === */}
+					<div className="flex flex-wrap justify-center gap-4 pt-4">
+						<button className="win95-outset px-6 py-3 flex items-center gap-2 text-black font-bold active:translate-y-[2px] active:shadow-none">
+							{heroData.cta.primary} <FaArrowRight size={14} />
+						</button>
+
+						<button className="win95-outset px-6 py-3 flex items-center gap-2 text-black font-bold active:translate-y-[2px] active:shadow-none">
+							<FaDownload size={14} /> {heroData.cta.secondary}
+						</button>
+					</div>
+
+					{/* === SOCIALS === */}
+					<div className="flex justify-center gap-6 pt-6 text-sm">
+						{heroData.socials.map((item, i) => (
+							<a
+								key={i}
+								href={item.href}
+								target="_blank"
+								className="text-primary hover:underline"
+							>
+								[{item.label}]
+							</a>
+						))}
 					</div>
 				</motion.div>
 			</div>
 		</section>
 	);
-}
+};
