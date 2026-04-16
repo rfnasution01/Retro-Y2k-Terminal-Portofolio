@@ -1,27 +1,26 @@
 export const heroData = {
 	terminalHeader: "system_status: online",
-	username: "fresh_grad",
-	hostname: "portfolio_v1",
+	username: "yourname",
+	hostname: "global_portfolio",
 	directory: "~",
 
-	// Baris perkenalan yang akan di-loop dengan efek typing
 	typingLines: [
-		"Initializing career.exe...",
-		"Loading skills: React, Tailwind, TypeScript",
-		"Status: Open for new opportunities.",
+		"Initializing portfolio...",
+		"Loading stack: React, TypeScript, Next.js",
+		"Status: Available for global opportunities.",
 	],
 
-	mainTitle: "Frontend Developer",
+	mainTitle: "Frontend Engineer",
 	subTitle:
-		"Membangun antarmuka digital yang bersih, fungsional, dan berorientasi pada performa.",
+		"Building fast, scalable, and user-focused digital experiences for global users.",
 
 	cta: {
-		primary: "Lihat Proyek",
-		secondary: "Download CV (PDF)",
+		primary: "View Projects",
+		secondary: "Download Resume",
 	},
 
 	socials: [
-		{ label: "GitHub", href: "https://github.com" },
-		{ label: "LinkedIn", href: "https://linkedin.com" },
+		{ label: "GitHub", href: "https://github.com/yourname" },
+		{ label: "LinkedIn", href: "https://linkedin.com/in/yourname" },
 	],
 };

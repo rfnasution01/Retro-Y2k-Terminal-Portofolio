@@ -2,33 +2,33 @@ import ImgProduct1 from "@/assets/img/produk-1.jpg";
 import ImgProduct2 from "@/assets/img/produk-2.jpg";
 
 export const projectsData = {
-	sectionTitle: "C:\\Projects\\Recent_Works",
+	sectionTitle: "/projects/recent_work",
 	sidebarFolders: ["All Projects", "Web Apps", "UI/UX"],
 
 	projects: [
 		{
 			id: 1,
-			title: "E-Commerce OS",
+			title: "Global E-Commerce Platform",
 			category: "Web Apps",
-			description: "Platform belanja dengan antarmuka command-line.",
-			tech: ["React", "Tailwind", "Framer Motion"],
-			image: ImgProduct1, // Ganti dengan screenshot proyek
-			link: "https://github.com",
-			status: "Stable",
-			size: "1.2 MB",
+			description:
+				"Scalable e-commerce platform with modern UI, optimized performance, and seamless checkout experience.",
+			tech: ["React", "Next.js", "Stripe", "Tailwind"],
+			image: ImgProduct1,
+			link: "https://github.com/yourname/project",
+			status: "Production",
+			size: "2.4 MB",
 		},
 		{
 			id: 2,
-			title: "Terminal Chat",
-			category: "UI/UX",
+			title: "Realtime Collaboration App",
+			category: "Web Apps",
 			description:
-				"Real-time chat app menggunakan socket.io dengan estetika Y2K.",
+				"Real-time chat and collaboration platform with socket-based architecture and modern UX.",
 			tech: ["Next.js", "Socket.io", "TypeScript"],
 			image: ImgProduct2,
-			link: "https://github.com",
+			link: "https://github.com/yourname/project",
 			status: "Beta",
-			size: "850 KB",
+			size: "1.1 MB",
 		},
-		// Tambahkan proyek lainnya di sini
 	],
 };

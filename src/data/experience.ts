@@ -1,32 +1,32 @@
 export const experienceData = {
-	title: "SYSTEM_LOG: Work_Experience",
-	subtitle: "Melihat riwayat pembaruan karir dan kontribusi profesional.",
+	title: "SYSTEM_LOG: Professional_Experience",
+	subtitle: "Tracking career growth, shipped products, and real-world impact.",
 	logs: [
 		{
 			date: "2023 - PRESENT",
 			role: "Frontend Developer",
-			company: "Tech StartUp X",
+			company: "Global Tech Startup",
 			description:
-				"Memimpin migrasi codebase dari JavaScript ke TypeScript. Mengoptimalkan performa React hingga 40% menggunakan teknik memoization.",
-			tags: ["React", "Next.js", "Performance"],
-			type: "PATCH", // Bisa: PATCH, MAJOR, MINOR (ala SemVer)
+				"Led migration from JavaScript to TypeScript, improving maintainability and reducing bugs. Boosted React performance by up to 40% through memoization and optimized rendering strategies.",
+			tags: ["React", "Next.js", "Performance", "TypeScript"],
+			type: "MAJOR",
 		},
 		{
 			date: "2022 - 2023",
-			role: "Junior Web Developer",
-			company: "Creative Agency Y",
+			role: "Web Developer",
+			company: "International Creative Agency",
 			description:
-				"Membangun 10+ landing page responsif menggunakan Tailwind CSS dan Framer Motion untuk klien internasional.",
-			tags: ["Tailwind", "GSAP", "UI/UX"],
+				"Developed 10+ high-converting responsive landing pages for global clients, focusing on performance, accessibility, and modern UI/UX practices.",
+			tags: ["Tailwind", "Framer Motion", "UI/UX"],
 			type: "MINOR",
 		},
 		{
 			date: "2021 - 2022",
-			role: "IT Internship",
-			company: "Government Office",
+			role: "IT Support & Intern",
+			company: "Public Sector / Government",
 			description:
-				"Melakukan maintenance database dan membantu troubleshooting jaringan internal.",
-			tags: ["SQL", "Networking", "Linux"],
+				"Maintained internal systems, optimized database queries, and assisted in network troubleshooting across multiple departments.",
+			tags: ["SQL", "Linux", "Networking"],
 			type: "INITIAL_COMMIT",
 		},
 	],

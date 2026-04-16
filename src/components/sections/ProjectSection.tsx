@@ -19,7 +19,7 @@ export const ProjectSection = () => {
 	);
 
 	return (
-		<section className="py-20 px-6">
+		<section id="project" className="py-20 px-6">
 			<div className="container max-w-6xl mx-auto flex justify-center">
 				{/* === WINDOW === */}
 				<div className="win95-outset overflow-hidden shadow-win mx-auto">

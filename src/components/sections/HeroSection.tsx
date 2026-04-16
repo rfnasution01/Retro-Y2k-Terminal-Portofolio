@@ -107,13 +107,27 @@ export const HeroSection = () => {
 
 					{/* === CTA BUTTONS (WIN95 STYLE) === */}
 					<div className="flex flex-wrap justify-center gap-4 pt-4">
-						<button className="win95-outset px-6 py-3 flex items-center gap-2 text-black font-bold active:translate-y-[2px] active:shadow-none">
+						{/* CTA PRIMARY */}
+						<button
+							onClick={() => {
+								const el = document.getElementById("project");
+								if (el) {
+									el.scrollIntoView({ behavior: "smooth" });
+								}
+							}}
+							className="win95-outset px-6 py-3 flex items-center gap-2 text-black font-bold active:translate-y-[2px] active:shadow-none"
+						>
 							{heroData.cta.primary} <FaArrowRight size={14} />
 						</button>
 
-						<button className="win95-outset px-6 py-3 flex items-center gap-2 text-black font-bold active:translate-y-[2px] active:shadow-none">
+						{/* CTA SECONDARY */}
+						<a
+							href="/CV.pdf"
+							download
+							className="win95-outset px-6 py-3 flex items-center gap-2 text-black font-bold active:translate-y-[2px] active:shadow-none"
+						>
 							<FaDownload size={14} /> {heroData.cta.secondary}
-						</button>
+						</a>
 					</div>
 
 					{/* === SOCIALS === */}

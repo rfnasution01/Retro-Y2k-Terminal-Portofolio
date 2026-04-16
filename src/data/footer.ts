@@ -1,10 +1,10 @@
 export const footerData = {
-	copyright: "© 2024 System_Core. All rights reserved.",
-	version: "v4.0.0-stable",
+	copyright: "© 2026 Your Name. All rights reserved.",
+	version: "v2.0.0-global",
 	links: [
-		{ label: "Github", href: "#" },
-		{ label: "LinkedIn", href: "#" },
-		{ label: "Twitter", href: "#" },
+		{ label: "GitHub", href: "https://github.com/yourname" },
+		{ label: "LinkedIn", href: "https://linkedin.com/in/yourname" },
+		{ label: "Twitter", href: "https://x.com/yourname" },
 	],
-	systemStats: "CPU: 2% | RAM: 1.2GB/16GB",
+	systemStats: "Status: Online | Availability: Open",
 };
